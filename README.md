@@ -32,21 +32,22 @@ This modular approach enables high accuracy with interpretable, confidence-aware
 
 ---
 
-## Dataset Overview
+## Dataset Access
 
-* **Source:** ERA5 reanalysis dataset (December 2024)
-* **Link:** [Link to dataset](https://drive.google.com/file/d/1ZNUpt32UsE8F-GpZJ2hoULh4OFhW5FL1/view?usp=sharing)
-* **Variables:**
+The dataset used is the **ERA5 Reanalysis Dataset**, provided by the European Centre for Medium-Range Weather Forecasts (ECMWF). It can be accessed via the [Copernicus Climate Data Store](https://cds.climate.copernicus.eu).  
 
-  * 10m U-component of Wind (`u10`)
-  * 2m Temperature (`t2m`)
-  * 2m Dewpoint Temperature (`d2m`)
-  * Surface Pressure (`sp`)
-* **Spatial Resolution:** 721 lat × 1440 lon grid
-* **Temporal Resolution:** 3-hour intervals (sampled every 3rd day)
-* **Total Time Steps:** 64 (spanning December)
+- **Variables used:**  
+  - 10m U-component of Wind (`u10`)  
+  - 2m Temperature (`t2m`)  
+  - 2m Dewpoint Temperature (`d2m`)  
+  - Surface Pressure (`sp`)  
 
----
+- **Resolution:** 721 lat × 1440 lon grid  
+- **Temporal Resolution:** 3-hour intervals  
+- **Time Steps:** 64 (December 2024)  
+
+The link to the dataset is: [Google Drive Link](https://drive.google.com/file/d/1ZNUpt32UsE8F-GpZJ2hoULh4OFhW5FL1/view?usp=sharing)
+
 
 ## Requirements
 
@@ -56,3 +57,30 @@ This modular approach enables high accuracy with interpretable, confidence-aware
 * NumPy
 * Matplotlib
 
+---
+
+## Implementation Guidelines
+
+1. **Preprocessing**  
+   - Convert temperature from Kelvin → Celsius  
+   - Convert pressure from Pascals → hPa  
+   - Standardize features using `StandardScaler`  
+   - Train/Validation/Test split: 44 / 9 / 11 time steps  
+
+2. **Running the Framework**  
+   - Step 1: Apply **GCNN** for spatial feature extraction.  
+   - Step 2: Use **Mamba** for temporal dependency modeling.  
+   - Step 3: Train **Gaussian Processes** on residuals for uncertainty quantification.  
+   - Final prediction is a weighted ensemble (60% GCNN-Mamba, 40% GP).  
+
+---
+
+## Notes
+
+- Only **pseudocode of the GCNN, Mamba, and GP modules** is provided here to highlight the core methodological contributions.  
+- Full replication can be achieved by combining this pseudocode with:  
+  1. The ERA5 dataset (link above), and  
+  2. The preprocessing and hyperparameter details given in the manuscript.  
+- This ensures reproducibility while preserving proprietary training scripts.  
+
+---
